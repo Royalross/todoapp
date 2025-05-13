@@ -30,6 +30,7 @@ public class TaskController {
         model.addAttribute("tasks", tasks);
         return "tasks";
     }
+    // RequestParm read query parameters (?name=xyz)
     @PostMapping
     public String createTask(@RequestParam String title){
         Task task = new Task();
@@ -40,13 +41,16 @@ public class TaskController {
         return "redirect:/";
 
     }
-    @GetMapping("/{id}/delete")
+
+    // HTML forms only support Get and Post natively
+    // PathVariable Extracting values from URL paths (/task/{id})
+    @PostMapping("/{id}/delete")
     public String deleteTask(@PathVariable Long id){
         taskService.deleteTask(id);
         return "redirect:/";
     }
 
-    @GetMapping("/{id}/toggle")
+    @PostMapping("/{id}/toggle")
     public String toggleTask(@PathVariable Long id){
         taskService.toggleTask(id);
         return "redirect:/";
